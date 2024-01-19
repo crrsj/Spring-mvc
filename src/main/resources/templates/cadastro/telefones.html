@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+ 
+</head>
+<body>
+ <h1>Cadastro de telefones</h1>
+   
+   <a class="waves-effect waves-light btn" href="/cadastroprofessor">Voltar</a>
+   
+     <div th:each="p : ${professorobj}">
+    	<div class="row">
+		  <p>ID: <span th:text = "${p.id}"></span></p>
+		  <p>Nome: <span th:text = "${p.nome}"></span></p>
+		  <p>Disciplina: <span th:text = "${p.disciplina}"></span></p>
+		  <p>Nivel: <span th:text = "${p.nivel}"></span></p>
+		</div>	 	 		 
+	 </div>
+	 
+	 <h5>Telefones</h5>
+	  <div class="row">
+	    <form th:action="@{/addfoneProfessor/{idprofessor}(idprofessor=${professorobj.id})}" method="post" class= "col s12">
+	    <div class="row">
+	     <div class="input-field col s6">
+	      <label class="active" for="numero"><b>Número</b></label>
+	      <input id="numero" name="numero" class="validate">	      
+	     </div>
+	      <div class="input-field col s6">
+	      <label class="active" for="tipo"><b>Tipo</b></label>
+	      <input id="tipo" name="tipo" class="validate">	      
+	     </div>
+	     
+	    	<input type="submit" class="waves-effect waves-light btn"  value="Adicionar">    
+	    </div>
+	    
+	    
+	    </form>      
+	  	  
+	  </div>
+ 
+    
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+</body>
+</html>

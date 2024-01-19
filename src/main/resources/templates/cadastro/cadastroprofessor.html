@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+ 
+</head>
+<body>
+  <h1> <center>Projeto Spring Mvc com Thymeleaf</center> </h1>
+ <div class="row">
+	<form action="deletarprofessor" id="formprofessor" method="post" th:object="${professorobj}">
+		<div class="row" >
+		  <div class="input-fiel col s6">
+	    	<label for="id" class="active"><b>ID</b></label>
+		    <input id="id" class="validate"  name="id" th:field="*{id}" readonly>
+		    </div>
+		      <div class="input-fiel col s6">
+		    <label for="nome" class="active"><b>Nome</b></label>		
+		    <input id="nome" class="validate" name="nome" th:field="*{nome}">
+		    </div>
+		</div>
+		  <div class="row" >
+			 <div class="input-fiel col s6">  
+		       <label for="disciplina" class="active"><b>Disciplina</b></label>
+		       <input id="disciplina" class="validate" name="disciplina" th:field="*{disciplina}">
+		      </div> 
+		     <div class="input-fiel col s6">     
+		      <label for="nivel" class="active"><b>Nivel</b></label>
+		      <input id="nivel" class="validate" name="nivel" th:field="*{nivel}">
+		    </div> 
+		</div>   
+		<div class="row" >
+		  <div class="input-fiel col s6">  
+	         <input class="waves-effect waves-light btn"  type="submit" value="Salvar">
+	         <button class="waves-effect waves-light btn" onclick="document.getElementById('formprofessor').reset();">Novo</button>
+         </div> 
+        </div>   
+	  </form>
+   </div>
+   <div class="row" >  
+     <form action="pesquisarprofessor" method="post">
+		 <div class="row" >
+		 <div class="input-fiel col s6">  
+		  <label><b>Pesquise por nome:</b></label>
+		   <input name="nomepesquisa">
+		   <input class="waves-effect waves-light btn"  type="submit" value="Nome">		 
+		   <a class="waves-effect waves-light btn" href="/listarprofessores">Buscar</a>		
+		 </div>   
+		</div>  
+	 </form>
+	</div>  	
+   <table class="striped">
+	   <thead>
+		 <tr>
+			 <th>ID</th>
+			 <th>Nome</th>
+			 <th>Disciplina</th>
+			 <th>Nivel</th>
+			 <th>Editar</th>
+			 <th>Excluir</th>
+		 </tr>
+	   </thead>
+	   <tr th:each = "professor : ${professores}">
+	    <td th:text = "${professor.id}"></td>
+		<td><a th:href="@{/telefones/{idprofessor}(idprofessor = ${professor.id})}"><span th:text = "${professor.nome}"></a></span> </td>  
+		 <td th:text = "${professor.disciplina}"></td> 
+		  <td th:text = "${professor.nivel}"></td> 
+		  <td><a th:href="@{/editarprofessor/{idprofessor}(idprofessor = ${professor.id})}">Editar</a></td> 
+		  <td><a th:href="@{/removerprofessor/{idprofessor}(idprofessor = ${professor.id})}">Excluir</a></td> 
+	   </tr>
+	   
+   </table>
+     <style>
+		 form input[type = submit]{
+			 color: white;
+		 }
+		
+	 </style>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+</body>
+</html>
