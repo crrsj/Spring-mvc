@@ -65,7 +65,7 @@
 	   </thead>
 	   <tr th:each = "professor : ${professores}">
 	    <td th:text = "${professor.id}"></td>
-		<td><a th:href="@{/telefones/{idprofessor}(idprofessor = ${professor.id})}"><span th:text = "${professor.nome}"></a></span> </td>  
+		<td><a th:href="@{/telefones/{idprofessor}(idprofessor = ${professor.id})}"><span th:text ="${professor.nome}"></span></a></td>  
 		 <td th:text = "${professor.disciplina}"></td> 
 		  <td th:text = "${professor.nivel}"></td> 
 		  <td><a th:href="@{/editarprofessor/{idprofessor}(idprofessor = ${professor.id})}">Editar</a></td> 

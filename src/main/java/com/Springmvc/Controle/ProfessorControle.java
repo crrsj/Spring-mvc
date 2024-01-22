@@ -85,6 +85,7 @@ public class ProfessorControle {
 		Optional<Professor> professor = repositorio.findById(idprofessor);
 		var mav = new ModelAndView("cadastro/telefones");
 		mav.addObject("professorobj",professor.get());
+		mav.addObject("telefones",telRepositotio.getTelefones(idprofessor));
 		return mav;
 	}
 	
@@ -95,6 +96,7 @@ public class ProfessorControle {
 		telRepositotio.save(telefone);
 		var mv = new ModelAndView("cadastro/telefones");
 		mv.addObject("professorobj",professor);
+		mv.addObject("telefones",telRepositotio.getTelefones(idprofessor));
 		return mv;
 	}
 }

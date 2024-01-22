@@ -35,15 +35,29 @@
 	      <input id="tipo" name="tipo" class="validate">	      
 	     </div>
 	     
-	    	<input type="submit" class="waves-effect waves-light btn"  value="Adicionar">    
+	    	<input type="submit" class="waves-effect waves-light btn" value="Adicionar">   
+  
+   
 	    </div>
 	    
 	    
 	    </form>      
 	  	  
 	  </div>
- 
-    
+     <table class="striped">  	
+      <thead>
+       <tr>
+         <th><th>
+         <th><th>
+      </tr>      
+     </thead>     
+       <tr th:each="fone:${telefones}">
+         <td th:text = "${fone.numero}"></td>
+         <td th:text = "${fone.tipo}"></td>        
+                
+       </tr>
+      
+    </table> 
 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
