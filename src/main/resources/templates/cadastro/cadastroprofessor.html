@@ -10,8 +10,17 @@
 </head>
 <body>
   <h1> <center>Projeto Spring Mvc com Thymeleaf</center> </h1>
+  <br>
+  
+    <div th:each = "m : ${msg}">
+     <span th:text = "${m}"></span>
+    
+    
+    </div>
+    
+  <br>
  <div class="row">
-	<form action="deletarprofessor" id="formprofessor" method="post" th:object="${professorobj}">
+	<form action="salvarprofessor" id="formprofessor" method="post" th:object="${professorobj}">
 		<div class="row" >
 		  <div class="input-fiel col s6">
 	    	<label for="id" class="active"><b>ID</b></label>

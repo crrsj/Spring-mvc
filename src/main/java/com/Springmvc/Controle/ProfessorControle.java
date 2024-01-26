@@ -1,9 +1,13 @@
 package com.Springmvc.Controle;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +20,8 @@ import com.Springmvc.Model.Professor;
 import com.Springmvc.Model.Telefone;
 import com.Springmvc.Repositorio.ProfessorRepositorio;
 import com.Springmvc.Repositorio.TelefoneRepositorio;
+
+import jakarta.validation.Valid;
 
 
 
@@ -37,9 +43,24 @@ public class ProfessorControle {
 		return mv;
 		
 	}
-	@RequestMapping(method = RequestMethod.POST,value = "**/deletarprofessor")
-	public ModelAndView salvar(Professor professor) {
+	@RequestMapping(method = RequestMethod.POST,value = "**/salvarprofessor")
+	public ModelAndView salvar(@Valid Professor professor,BindingResult result) {
+		
+		if(result.hasErrors()) {
+			var mv = new ModelAndView("cadastro/cadastroprofessor");
+			Iterable<Professor>prof  = repositorio.findAll();
+			mv.addObject("professores",prof);
+			mv.addObject("professorobj",professor);
+			List<String> msg = new ArrayList<String>();
+			for(ObjectError obj : result.getAllErrors() ) {
+				msg.add(obj.getDefaultMessage());  //vem das anotações do @NotEmpty
+			}
+			mv.addObject("msg",msg);
+			return mv;
+		}
+		
 		repositorio.save(professor);
+		
 		var mv = new ModelAndView("cadastro/cadastroprofessor");
 		Iterable<Professor>prof  = repositorio.findAll();
 		mv.addObject("professores",prof);
@@ -99,4 +120,16 @@ public class ProfessorControle {
 		mv.addObject("telefones",telRepositotio.getTelefones(idprofessor));
 		return mv;
 	}
+	
+	@GetMapping("/removertelefone/{idtelefone}")
+	public ModelAndView excluirTelefone(@PathVariable("idtelefone") Long idtelefone) {	
+		var professor = telRepositotio.findById(idtelefone).get().getProfessor();
+		telRepositotio.deleteById(idtelefone);
+		var mv = new ModelAndView("cadastro/telefones");
+		mv.addObject("professorobj",professor);
+		mv.addObject("telefones",telRepositotio.getTelefones(professor.getId()));
+		return mv;
+		
+	}
+	
 }
